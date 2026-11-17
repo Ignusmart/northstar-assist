@@ -1,0 +1,17 @@
+# Pre-ingestion scan of the poisoned document (F1 step 2)
+# Scanner: validate_documents.py from the course's Lesson 18 starter code (regex list of known injection phrases, e.g. 'ignore.*previous.*instructions').
+# Run 2026-11-17 on redteam/it_password_reset_procedure.txt. Result: PASS -> the pattern scan does not catch a plausibly worded injection.
+
+
+============================================================
+KNOWLEDGEHUB KB VALIDATION REPORT
+============================================================
+
+[PASS] it_password_reset_procedure.txt
+
+------------------------------------------------------------
+Total: 1 files | Pass: 1 | Fail: 0
+============================================================
+
+All documents passed validation.
+

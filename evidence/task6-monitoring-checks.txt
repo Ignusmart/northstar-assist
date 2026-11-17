@@ -1,0 +1,76 @@
+# Task 6 monitoring checks - run 2026-11-17T21:09:57Z
+# Log group /aws/bedrock/vantage-aria/invocations, window 2026-11-17T00:00Z to now
+
+## Metric filter NorthstarAssist-LargeContextCalls
+pattern: { ($.identity.arn = "arn:aws:sts::219317121475:assumed-role/AmazonBedrockAgentCoreHarnessDefaultServiceRole-68dqb/*") && ($.input.inputTokenCount > 20000) }
+matching events in window (filter-log-events, first page): 0
+
+## Metric filter NorthstarAssist-PromptAttackBlocks
+pattern: "PROMPT_ATTACK" "BLOCKED" "AmazonBedrockAgentCoreHarnessDefaultServiceRole-68dqb"
+matching events in window (filter-log-events, first page): 11
+test-metric-filter on the first matching record: 1 match(es), (metric value 1)
+
+## Q1 (Complete)
+filter operation = "ConverseStream" and identity.arn like /68dqb/
+| parse identity.arn "AgentCore-MicroVM-*-DEFAULT" as session
+| fields @message like /toolResult/ as hasRetrieval
+| stats count(*) as turns, sum(hasRetrieval) as turnsWithRetrievedContext,
+        max(input.inputTokenCount) as maxIn, sum(output.outputTokenCount) as outTokens by session
+| filter turnsWithRetrievedContext = 0 and maxIn > 0
+| sort outTokens desc
+
+  session=8a2d05a7  turns=1  turnsWithRetrievedContext=0  maxIn=177  outTokens=1000
+  session=bbe22cf1  turns=1  turnsWithRetrievedContext=0  maxIn=177  outTokens=1000
+  session=8ec96cd2  turns=1  turnsWithRetrievedContext=0  maxIn=2687  outTokens=280
+  session=f3135016  turns=1  turnsWithRetrievedContext=0  maxIn=176  outTokens=246
+  session=54fedbcc  turns=1  turnsWithRetrievedContext=0  maxIn=2687  outTokens=232
+  session=85124c39  turns=1  turnsWithRetrievedContext=0  maxIn=1360  outTokens=159
+  session=d5b48134  turns=1  turnsWithRetrievedContext=0  maxIn=1360  outTokens=146
+rows: 7
+
+## Q3 (Complete)
+filter operation = "ConverseStream" and identity.arn like /68dqb/ and output.outputBodyJson.stopReason = "guardrail_intervened"
+| parse identity.arn "AgentCore-MicroVM-*-DEFAULT" as session
+| parse @message /"type": ?"(?<policyType>PROMPT_ATTACK|[A-Z_]+)", ?"confidence"/
+| stats count(*) as blocks by session, policyType
+| sort blocks desc
+
+  session=b7a516ae  blocks=1
+  session=e3e662f9  policyType=PROMPT_ATTACK  blocks=1
+  session=1fe5cbe8  policyType=PROMPT_ATTACK  blocks=1
+  session=a54926f0  blocks=1
+  session=e75534e9  policyType=MISCONDUCT  blocks=1
+  session=ac139a5f  policyType=PROMPT_ATTACK  blocks=1
+  session=8c234bdf  policyType=PROMPT_ATTACK  blocks=1
+  session=619a3cfa  policyType=PROMPT_ATTACK  blocks=1
+  session=800f40a1  blocks=1
+  session=a8bf05a9  blocks=1
+  session=71308eb7  policyType=PROMPT_ATTACK  blocks=1
+  session=76b4a05e  policyType=PROMPT_ATTACK  blocks=1
+  session=02c7b9b5  blocks=1
+  session=93221291  policyType=PROMPT_ATTACK  blocks=1
+  session=0d303e10  policyType=MISCONDUCT  blocks=1
+  session=ecaff727  blocks=1
+  session=ac473b01  blocks=1
+  session=81484678  blocks=1
+  session=407241c2  policyType=PROMPT_ATTACK  blocks=1
+  session=1af1673b  policyType=PROMPT_ATTACK  blocks=1
+  session=7c1b0274  blocks=1
+  session=796fd959  policyType=PROMPT_ATTACK  blocks=1
+rows: 22
+
+## Q4 (Complete)
+filter operation = "ConverseStream" and identity.arn like /68dqb/
+| parse @message /s3:\/\/northstar-assist-kb-jaqr-101020\/(?<doc>[^"\\]+)/
+| filter ispresent(doc)
+| stats count(*) as turns by doc
+| sort turns desc
+
+  doc=html/company_policies_handbook.html  turns=13
+  doc=csv/employee_directory.csv  turns=5
+  doc=xlsx/vendor_management.xlsx  turns=5
+  doc=txt/it_password_reset_procedure.txt  turns=4
+  doc=html/troubleshooting_guide.html  turns=3
+  doc=docx/security_policy.docx  turns=2
+rows: 6
+

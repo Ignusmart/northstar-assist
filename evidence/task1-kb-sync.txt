@@ -1,0 +1,49 @@
+# Task 1: knowledge base sync history (aws bedrock-agent list-ingestion-jobs), KB 5CO8QOAYFZ / data source 0YC45VVULG
+# 9TX8OJ64ZK = initial sync (30 scanned, 30 indexed, 0 failed); QDPODMPFGA = poisoned doc added (Task 7 F1); U4H0FXJRW3 = poisoned doc deleted (containment)
+[
+    {
+        "id": "QDPODMPFGA",
+        "status": "COMPLETE",
+        "started": "2026-11-17T16:25:42.875174+00:00",
+        "stats": {
+            "numberOfDocumentsScanned": 31,
+            "numberOfMetadataDocumentsScanned": 0,
+            "numberOfNewDocumentsIndexed": 1,
+            "numberOfModifiedDocumentsIndexed": 0,
+            "numberOfMetadataDocumentsModified": 0,
+            "numberOfDocumentsDeleted": 0,
+            "numberOfDocumentsFailed": 0,
+            "numberOfDocumentsSkipped": 0
+        }
+    },
+    {
+        "id": "U4H0FXJRW3",
+        "status": "COMPLETE",
+        "started": "2026-11-17T16:28:31.339677+00:00",
+        "stats": {
+            "numberOfDocumentsScanned": 30,
+            "numberOfMetadataDocumentsScanned": 0,
+            "numberOfNewDocumentsIndexed": 0,
+            "numberOfModifiedDocumentsIndexed": 0,
+            "numberOfMetadataDocumentsModified": 0,
+            "numberOfDocumentsDeleted": 1,
+            "numberOfDocumentsFailed": 0,
+            "numberOfDocumentsSkipped": 0
+        }
+    },
+    {
+        "id": "9TX8OJ64ZK",
+        "status": "COMPLETE",
+        "started": "2026-11-17T15:11:52.370423+00:00",
+        "stats": {
+            "numberOfDocumentsScanned": 30,
+            "numberOfMetadataDocumentsScanned": 0,
+            "numberOfNewDocumentsIndexed": 30,
+            "numberOfModifiedDocumentsIndexed": 0,
+            "numberOfMetadataDocumentsModified": 0,
+            "numberOfDocumentsDeleted": 0,
+            "numberOfDocumentsFailed": 0,
+            "numberOfDocumentsSkipped": 0
+        }
+    }
+]

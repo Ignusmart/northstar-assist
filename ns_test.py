@@ -1,7 +1,7 @@
 """Northstar Assist test runner: one new session per prompt, prints tools, stop reasons, answer.
 
-    AWS_PROFILE=udacity-ai-security-engineer python ns_test.py "prompt" ...
-    OVERRIDE=global.amazon.nova-2-lite-v1:0 python ...ns_test.py "prompt"   # per-request model override, no guardrailConfig
+    AWS_PROFILE=<your-profile> python ns_test.py "prompt" ...
+    OVERRIDE=global.amazon.nova-2-lite-v1:0 python ns_test.py "prompt"   # per-request model override, no guardrailConfig
 """
 import os
 import sys

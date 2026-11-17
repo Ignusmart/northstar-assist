@@ -32,7 +32,7 @@ The fixed policies were checked with IAM Access Analyzer `validate-policy` (0 fi
 ## 3. Harness execution role (agent execution role)
 
 **Original:**
-- Two AWS-generated managed policies, `AmazonBedrockAgentCoreHarnessExecutionPolicy_5zgdw` and `AmazonBedrockAgentCoreHarnessGatewayPolicy_9ehrf`, with **21 statements** in total.
+- Two AWS-generated managed policies, `AmazonBedrockAgentCoreHarnessExecutionPolicy_5zgdw` and `AmazonBedrockAgentCoreHarnessGatewayPolicy_9ehrf`, with **22 statements** in total.
 
 **Scoped:**
 - One inline policy, `NorthstarScopedHarnessExecution`, with **6 statements**.
@@ -115,7 +115,7 @@ The policies were applied, and the test ran after a 70-second IAM propagation wa
 | Test | Expected | Observed |
 |---|---|---|
 | Knowledge base question ("What is Northstar's hybrid work policy?") | Retrieve tool call + grounded answer | ✅ `northstar-kb___Retrieve` called. The answer came from `company_policies_handbook.html`. **The request path still works.** |
-| Per-request model override to `global.amazon.nova-2-lite-v1:0` (not on the allow-list) | Denied | ✅ `AccessDeniedException`: the harness role is not authorized to perform `bedrock:InvokeModelWithResponseStream` on that model. **The model allow-list holds.** |
+| Per-request model override to `global.amazon.nova-2-lite-v1:0` (not on the allow-list) | Denied | ✅ `AccessDeniedException`: the harness role is not authorized to perform `bedrock:InvokeModelWithResponseStream` on that model, with an **explicit deny**: the guardrail Deny fires first because the override carries no guardrail, and the model allow-list is a second layer behind it (`evidence/task4-override-tests.txt`). |
 | Per-request override to the **approved** model `us.amazon.nova-2-lite-v1:0` **without** `guardrailConfig` (after Task 5) | Denied by the guardrail Deny | ✅ `AccessDeniedException` on `bedrock:InvokeModelWithResponseStream`. The model is allowed, so the denial comes from **the guardrail requirement**. |
 | `aws accessanalyzer validate-policy` on both scoped policies and `NorthstarGuardrailEnforcement` | No errors or security warnings | ✅ 0 findings |
 

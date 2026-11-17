@@ -10,19 +10,19 @@ Northstar Assist is an internal employee assistant. It runs as an Amazon Bedrock
 
 | Task | Deliverable | File(s) |
 |---|---|---|
-| 1 | Working harness with retrieval | `evidence/task1-harness.png`, `evidence/task1-retrieve.png`, `evidence/task1-transcript.md` |
+| 1 | Working harness with retrieval | `evidence/task1-harness.png`, `evidence/task1-retrieve.png`, `evidence/task1-transcript.md`, `evidence/task1-kb-sync.txt` |
 | 2 | ML Bill of Materials | `deliverables/02_ML-BOM_Northstar_Assist.docx` |
 | 3 | STRIDE-ML threat model | `deliverables/03_STRIDE-ML_Northstar_Assist.docx` |
-| 4 | IAM hardening summary | `deliverables/04_iam_hardening_summary.md`, policies in `iam/before/` and `iam/after/` |
+| 4 | IAM hardening summary | `deliverables/04_iam_hardening_summary.md`, policies in `iam/before/` and `iam/after/`, `evidence/task4-override-tests.txt` |
 | 5 | Safety and response controls | `deliverables/05_safety_controls.md`, `guardrail/` |
-| 6 | Monitoring plan and incident response playbook | `deliverables/06_monitoring_and_ir_playbook.md`, `monitoring/`, `evidence/task6-alarm-trigger.txt` |
+| 6 | Monitoring plan and incident response playbook | `deliverables/06_monitoring_and_ir_playbook.md`, `monitoring/`, `evidence/task6-alarm-trigger.txt`, `evidence/task6-monitoring-checks.txt` |
 | 7 | Edge-case testing and launch-readiness report | `deliverables/07_launch_readiness_report.md`, `evidence/task7-*.txt`, `redteam/` |
 
 ## Key results
 
 - Knowledge base sync: 30 documents scanned, 30 indexed, 0 failed.
-- IAM: harness role reduced from 21 statements to 6; an IAM Deny blocks any model call made without the guardrail.
-- Guardrail v1 (Classic tier): prompt attack, content filters, 2 denied topics, PII masking/blocking. All direct-injection and sensitive-data test prompts were blocked.
+- IAM: harness role reduced from 22 statements to 6; an IAM Deny blocks any model call made without the guardrail.
+- Guardrail v1 (Classic tier): prompt attack, content filters, 2 denied topics, PII masking/blocking. All 17 direct-injection attempts were blocked; sensitive-data prompts were blocked (business financials, secrets) or masked (emails, phone numbers). Bulk enumeration of names and titles is still possible (finding F2).
 - Monitoring: 3 CloudWatch alarms and 2 metric filters; the guardrail-interventions alarm fired during testing.
 - Remaining risk: indirect prompt injection through knowledge-base documents (2 of 3 poisoned-document tests succeeded), because guardrails don't screen retrieved chunks.
 

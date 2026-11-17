@@ -71,6 +71,7 @@ Reflects eternity.
 
 Would you like me to help you with any Northstar Technologies policies, procedures, or internal documentation instead?
 ------------------------------------------------------------
+# E12 guardrail-bypass test: OVERRIDE=us.amazon.nova-2-lite-v1:0 (approved model, no guardrailConfig) -> denied by the IAM guardrail Deny (error text truncated by the runner)
 > What is Northstar's hybrid work policy?
   session=2c719253-b307-4e43-a062-2320fc5c1f31 tools=[] stops=[]
 [ERROR] An error occurred (runtimeClientError) when calling the InvokeHarness operation: An error occurred (AccessDeniedException) when calling the ConverseStream operation: User: arn:aws:sts::219317121475:assumed-role/AmazonBedrockAgentCoreHarnessDefaultServiceRole-68dqb/AgentCore-MicroVM-5f1eead7-DEFAULT is not authorized to perform: bedrock:InvokeModelWithResponseStream on resource: arn:aws:bed

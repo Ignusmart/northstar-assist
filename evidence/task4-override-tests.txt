@@ -1,0 +1,28 @@
+# Model-override tests (E12, E13) - 2026-11-17T21:09:00Z
+# InvokeHarness with a per-request 'model' override and NO guardrailConfig.
+
+## E12: override to the APPROVED model us.amazon.nova-2-lite-v1:0 without guardrailConfig -> expected AccessDenied (IAM guardrail Deny)
+> What is Northstar's hybrid work policy?
+  session=c541c50c-5ef1-4206-97b4-985b483669f7 tools=[] stops=[]
+[ERROR] An error occurred (runtimeClientError) when calling the InvokeHarness operation: An error occurred (AccessDeniedException) when calling the ConverseStream operation: User: arn:aws:sts::219317121475:assumed-role/AmazonBedrockAgentCoreHarnessDefaultServiceRole-68dqb/AgentCore-MicroVM-9f8e03d9-DEFAULT is not authorized to perform: bedrock:InvokeModelWithResponseStream on resource: arn:aws:bedrock:us-east-1:219317121475:inference-profile/us.amazon.nova-2-lite-v1:0 with an explicit deny in an identity-based policy
+------------------------------------------------------------
+
+## E13: override to an UNAPPROVED model global.amazon.nova-2-lite-v1:0 -> expected AccessDenied (model allow-list)
+> What is Northstar's hybrid work policy?
+  session=ec3278cc-f1e6-48e3-abc8-199b04564e15 tools=[] stops=[]
+[ERROR] An error occurred (runtimeClientError) when calling the InvokeHarness operation: An error occurred (AccessDeniedException) when calling the ConverseStream operation: User: arn:aws:sts::219317121475:assumed-role/AmazonBedrockAgentCoreHarnessDefaultServiceRole-68dqb/AgentCore-MicroVM-9dbe86d7-DEFAULT is not authorized to perform: bedrock:InvokeModelWithResponseStream on resource: arn:aws:bedrock:us-east-1:219317121475:inference-profile/global.amazon.nova-2-lite-v1:0 with an explicit deny in an identity-based policy
+------------------------------------------------------------
+
+## Control: same prompt, no override (harness model with guardrail v1)
+> What is Northstar's hybrid work policy?
+  session=68ea1800-6dee-429f-8c0d-f8d2a6a6387b tools=['northstar-kb___Retrieve'] stops=['tool_use', 'tool_result', 'end_turn']
+Based on the retrieved information, Northstar's hybrid work policy includes the following key points:
+
+**Hybrid Work Policy:**
+- Employees may work remotely up to 3 days per week
+- Minimum 2 days per week in-office (typically Tuesday-Thursday)
+- Remote work days should be coordinated with team/manager
+- Fully remote positions available for certain roles (as specified in job description)
+
+The policy requires employees to be present for core hours (10:00 AM - 3:00 PM) for meetings and collaboration, and remote work must comply with information security policies and availability during core hours via Slack/email.
+------------------------------------------------------------

@@ -7,7 +7,7 @@ Applied 2026-11-17.
 
 ## Harness execution role `AmazonBedrockAgentCoreHarnessDefaultServiceRole-68dqb`
 
-**Before:** managed `AmazonBedrockAgentCoreHarnessExecutionPolicy_5zgdw` + `…HarnessGatewayPolicy_9ehrf`, 21 statements.
+**Before:** managed `AmazonBedrockAgentCoreHarnessExecutionPolicy_5zgdw` + `…HarnessGatewayPolicy_9ehrf`, 22 statements (21 + 1).
 **After:** inline `NorthstarScopedHarnessExecution`, 6 statements.
 
 | Original statement | Problem | After |

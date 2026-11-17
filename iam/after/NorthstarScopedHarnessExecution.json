@@ -1,0 +1,73 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "InvokeApprovedModelOnly",
+      "Effect": "Allow",
+      "Action": [
+        "bedrock:InvokeModel",
+        "bedrock:InvokeModelWithResponseStream"
+      ],
+      "Resource": [
+        "arn:aws:bedrock:us-east-1:219317121475:inference-profile/us.amazon.nova-2-lite-v1:0",
+        "arn:aws:bedrock:us-east-1::foundation-model/amazon.nova-2-lite-v1:0",
+        "arn:aws:bedrock:us-east-2::foundation-model/amazon.nova-2-lite-v1:0",
+        "arn:aws:bedrock:us-west-2::foundation-model/amazon.nova-2-lite-v1:0"
+      ]
+    },
+    {
+      "Sid": "InvokeNorthstarGatewayOnly",
+      "Effect": "Allow",
+      "Action": "bedrock-agentcore:InvokeGateway",
+      "Resource": "arn:aws:bedrock-agentcore:us-east-1:219317121475:gateway/northstar-assist-gateway-7wmlscw52k"
+    },
+    {
+      "Sid": "OwnRuntimeLogsOnly",
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:DescribeLogStreams",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": [
+        "arn:aws:logs:us-east-1:219317121475:log-group:/aws/bedrock-agentcore/runtimes/harness_NorthstarAssist-2X0VnqAgmt-DEFAULT",
+        "arn:aws:logs:us-east-1:219317121475:log-group:/aws/bedrock-agentcore/runtimes/harness_NorthstarAssist-2X0VnqAgmt-DEFAULT:log-stream:*"
+      ]
+    },
+    {
+      "Sid": "RuntimeTokensNoResourceLevelSupport",
+      "Effect": "Allow",
+      "Action": [
+        "ecr:GetAuthorizationToken",
+        "ecr-public:GetAuthorizationToken",
+        "sts:GetServiceBearerToken",
+        "xray:PutTraceSegments",
+        "xray:PutTelemetryRecords"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "PullHarnessRuntimeImage",
+      "Effect": "Allow",
+      "Action": [
+        "ecr:BatchGetImage",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:BatchCheckLayerAvailability"
+      ],
+      "Resource": "arn:aws:ecr:us-east-1:*:repository/harness-*"
+    },
+    {
+      "Sid": "OwnWorkloadIdentityOnly",
+      "Effect": "Allow",
+      "Action": [
+        "bedrock-agentcore:GetWorkloadAccessToken",
+        "bedrock-agentcore:GetWorkloadAccessTokenForJWT"
+      ],
+      "Resource": [
+        "arn:aws:bedrock-agentcore:us-east-1:219317121475:workload-identity-directory/default",
+        "arn:aws:bedrock-agentcore:us-east-1:219317121475:workload-identity-directory/default/workload-identity/harness_NorthstarAssist-2X0VnqAgmt"
+      ]
+    }
+  ]
+}

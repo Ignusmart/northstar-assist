@@ -1,0 +1,138 @@
+{
+  "name": "northstar-assist-guardrail",
+  "description": "Northstar Assist: prompt attack + harmful content on input, denied topics, PII block/mask on output",
+  "contentPolicyConfig": {
+    "filtersConfig": [
+      {
+        "type": "HATE",
+        "inputStrength": "HIGH",
+        "outputStrength": "HIGH"
+      },
+      {
+        "type": "INSULTS",
+        "inputStrength": "HIGH",
+        "outputStrength": "HIGH"
+      },
+      {
+        "type": "SEXUAL",
+        "inputStrength": "HIGH",
+        "outputStrength": "HIGH"
+      },
+      {
+        "type": "VIOLENCE",
+        "inputStrength": "HIGH",
+        "outputStrength": "HIGH"
+      },
+      {
+        "type": "MISCONDUCT",
+        "inputStrength": "HIGH",
+        "outputStrength": "HIGH"
+      },
+      {
+        "type": "PROMPT_ATTACK",
+        "inputStrength": "HIGH",
+        "outputStrength": "NONE"
+      }
+    ],
+    "tierConfig": {
+      "tierName": "CLASSIC"
+    }
+  },
+  "topicPolicyConfig": {
+    "topicsConfig": [
+      {
+        "name": "Investment-Advice",
+        "type": "DENY",
+        "definition": "Requests for recommendations, predictions or opinions about buying, selling or valuing Northstar stock, equity grants or any other investment.",
+        "examples": [
+          "Should I buy more Northstar stock before the earnings call?",
+          "Will Northstar's share price go up next quarter?",
+          "Is it a good time to sell my vested shares?"
+        ]
+      },
+      {
+        "name": "Customer-Deal-Financials",
+        "type": "DENY",
+        "definition": "Requests for the specific revenue, contract value, deal size or pricing of named Northstar customers or sales prospects.",
+        "examples": [
+          "How much does Meridian Healthcare pay us per month?",
+          "What is the deal size for Quantum Analytics?",
+          "List our top customers by monthly revenue."
+        ]
+      }
+    ],
+    "tierConfig": {
+      "tierName": "CLASSIC"
+    }
+  },
+  "sensitiveInformationPolicyConfig": {
+    "piiEntitiesConfig": [
+      {
+        "type": "US_SOCIAL_SECURITY_NUMBER",
+        "action": "BLOCK",
+        "inputAction": "BLOCK",
+        "outputAction": "BLOCK",
+        "inputEnabled": true,
+        "outputEnabled": true
+      },
+      {
+        "type": "CREDIT_DEBIT_CARD_NUMBER",
+        "action": "BLOCK",
+        "inputAction": "BLOCK",
+        "outputAction": "BLOCK",
+        "inputEnabled": true,
+        "outputEnabled": true
+      },
+      {
+        "type": "US_BANK_ACCOUNT_NUMBER",
+        "action": "BLOCK",
+        "inputAction": "BLOCK",
+        "outputAction": "BLOCK",
+        "inputEnabled": true,
+        "outputEnabled": true
+      },
+      {
+        "type": "AWS_ACCESS_KEY",
+        "action": "BLOCK",
+        "inputAction": "BLOCK",
+        "outputAction": "BLOCK",
+        "inputEnabled": true,
+        "outputEnabled": true
+      },
+      {
+        "type": "AWS_SECRET_KEY",
+        "action": "BLOCK",
+        "inputAction": "BLOCK",
+        "outputAction": "BLOCK",
+        "inputEnabled": true,
+        "outputEnabled": true
+      },
+      {
+        "type": "PASSWORD",
+        "action": "BLOCK",
+        "inputAction": "BLOCK",
+        "outputAction": "BLOCK",
+        "inputEnabled": true,
+        "outputEnabled": true
+      },
+      {
+        "type": "EMAIL",
+        "action": "ANONYMIZE",
+        "inputAction": "NONE",
+        "outputAction": "ANONYMIZE",
+        "inputEnabled": false,
+        "outputEnabled": true
+      },
+      {
+        "type": "PHONE",
+        "action": "ANONYMIZE",
+        "inputAction": "NONE",
+        "outputAction": "ANONYMIZE",
+        "inputEnabled": false,
+        "outputEnabled": true
+      }
+    ]
+  },
+  "blockedInputMessaging": "Sorry, Northstar Assist can't help with that request.",
+  "blockedOutputsMessaging": "Sorry, Northstar Assist can't share that information."
+}

@@ -1,0 +1,1 @@
+{"bedrockModelConfig": {"modelId": "us.amazon.nova-2-lite-v1:0", "apiFormat": "converse_stream", "additionalParams": {"guardrailConfig": {"guardrailIdentifier": "arn:aws:bedrock:us-east-1:219317121475:guardrail/7x0s89htsojp", "guardrailVersion": "1", "trace": "enabled"}}}}

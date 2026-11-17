@@ -1,0 +1,6 @@
+{
+    "bedrockModelConfig": {
+        "modelId": "us.amazon.nova-2-lite-v1:0",
+        "apiFormat": "converse_stream"
+    }
+}

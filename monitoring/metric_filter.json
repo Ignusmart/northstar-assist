@@ -1,0 +1,34 @@
+{
+    "metricFilters": [
+        {
+            "filterName": "NorthstarAssist-LargeContextCalls",
+            "filterPattern": "{ ($.identity.arn = \"arn:aws:sts::219317121475:assumed-role/AmazonBedrockAgentCoreHarnessDefaultServiceRole-68dqb/*\") && ($.input.inputTokenCount > 20000) }",
+            "metricTransformations": [
+                {
+                    "metricName": "LargeContextModelCalls",
+                    "metricNamespace": "NorthstarAssist",
+                    "metricValue": "1",
+                    "defaultValue": 0.0
+                }
+            ],
+            "creationTime": 1794931245270,
+            "logGroupName": "/aws/bedrock/vantage-aria/invocations",
+            "applyOnTransformedLogs": false
+        },
+        {
+            "filterName": "NorthstarAssist-PromptAttackBlocks",
+            "filterPattern": "\"PROMPT_ATTACK\" \"BLOCKED\" \"AmazonBedrockAgentCoreHarnessDefaultServiceRole-68dqb\"",
+            "metricTransformations": [
+                {
+                    "metricName": "PromptAttackBlocks",
+                    "metricNamespace": "NorthstarAssist",
+                    "metricValue": "1",
+                    "defaultValue": 0.0
+                }
+            ],
+            "creationTime": 1794931313642,
+            "logGroupName": "/aws/bedrock/vantage-aria/invocations",
+            "applyOnTransformedLogs": false
+        }
+    ]
+}

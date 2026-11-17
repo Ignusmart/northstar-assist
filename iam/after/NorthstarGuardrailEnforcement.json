@@ -1,0 +1,28 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ApplyNorthstarGuardrail",
+      "Effect": "Allow",
+      "Action": "bedrock:ApplyGuardrail",
+      "Resource": "arn:aws:bedrock:us-east-1:219317121475:guardrail/7x0s89htsojp"
+    },
+    {
+      "Sid": "DenyModelCallsWithoutNorthstarGuardrail",
+      "Effect": "Deny",
+      "Action": [
+        "bedrock:InvokeModel",
+        "bedrock:InvokeModelWithResponseStream"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "ArnNotLike": {
+          "bedrock:GuardrailIdentifier": [
+            "arn:aws:bedrock:us-east-1:219317121475:guardrail/7x0s89htsojp",
+            "arn:aws:bedrock:us-east-1:219317121475:guardrail/7x0s89htsojp:*"
+          ]
+        }
+      }
+    }
+  ]
+}

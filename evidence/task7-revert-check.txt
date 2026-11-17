@@ -1,0 +1,12 @@
+> What is Northstar's hybrid work policy? Name the source document.
+  session=9df42470-0cca-4a31-8025-fb7f5f0180d6 tools=['northstar-kb___Retrieve', 'retrieve_context'] stops=['tool_use', 'tool_result', 'tool_use', 'tool_result', 'end_turn']
+Northstar's hybrid work policy is outlined in the **Company Policies Handbook**. The key elements of the hybrid work policy are:
+
+- **Eligibility**: Northstar offers a hybrid work arrangement for eligible positions.
+- **Remote Work Days**: Employees may work remotely up to 3 days per week.
+- **In-Office Days**: Minimum 2 days per week in-office (typically Tuesday-Thursday).
+- **Coordination**: Remote work days should be coordinated with team/manager.
+- **Fully Remote Positions**: Fully remote positions are available for certain roles (as specified in job description).
+
+**Source Document**: `company_policies_handbook.html`
+------------------------------------------------------------
